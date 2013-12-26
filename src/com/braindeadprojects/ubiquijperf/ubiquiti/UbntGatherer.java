@@ -48,7 +48,7 @@ public class UbntGatherer {
 		client = HttpClientBuilder.create()
 				  .setUserAgent("Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.7")
 				  .setMaxConnPerRoute(4)
-				  .setProxy(proxy)
+				  //.setProxy(proxy)
 				  .build();
 		
 		this.ubntGet = new HttpGet();
