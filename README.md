@@ -13,7 +13,9 @@ This project is an expanding from the JPerf codebase.
 
 ##Known Issues
 
-Similar to Ubiquiperf, you will most definitely need to compile iperf with pthread support.
+Similar to Ubiquiperf, you will most definitely need to compile iperf with pthread support (it's typically compiled
+that way in most Linux distributions).  
+
 Fonts may not render as intended, based on OS.
 
 I'm actively testing this using AirOS versions 5.3 and 5.4.5, with NanoStation, NanoBridge, and Rocket Titanium 
