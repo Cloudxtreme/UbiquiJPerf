@@ -8,4 +8,6 @@ Write SSL handler so that we can support HTTPS with self-signed certs
 
 Add ant build files for the project.
 
+Fix server jitter graph
+
 Much, much more...
