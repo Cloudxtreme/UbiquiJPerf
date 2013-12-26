@@ -51,7 +51,7 @@ public class UbiquiJPerfThread extends Thread {
 		this.finalResults = new Vector<JperfStreamResult>();
 		this.frame.logMessage(command);
 		
-		this.myUbnt = new UbntGatherer();
+		this.myUbnt = new UbntGatherer(frame.getCreds());
 	}
 	
 	public void run()

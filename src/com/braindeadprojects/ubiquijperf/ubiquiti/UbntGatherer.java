@@ -33,9 +33,7 @@ public class UbntGatherer {
 	private HttpPost ubntPost;
 	public  AirOSStats latestStats;
 	
-	private String apIp;
-	private String username;
-	private String password;
+	private UbntCredentials myCreds;
 	
 	private static String boundaryString = new String("--------------------abcdefghipoopingpig");
 	
@@ -57,21 +55,19 @@ public class UbntGatherer {
 		this.ubntPost = new HttpPost();
 	}
 	
-	/**
-	 * Method to set basic member variables in this class
-	 * 
-	 * @todo Write it
-	 * @param usernameString
-	 * @param passwordString
-	 * @param apIpString
-	 */
-	public UbntGatherer(String username, String password, String apIp)
+	public UbntGatherer(UbntCredentials myCreds)
 	{
-		this.username = username;
-		this.password = password;
-		this.apIp = apIp;
-		//In turn, you should call the non-paramaterized constructor...
-		
+		this();
+		this.setCreds(myCreds);
+	}
+	
+	/**
+	 * Method to set a credentials object
+	 * @param myCreds a UbntCredentials object
+	 */
+	public void setCreds(UbntCredentials myCreds)
+	{
+		this.myCreds = myCreds;
 	}
 	
 	/**
@@ -80,7 +76,7 @@ public class UbntGatherer {
 	public void phaseOne()	{
 						
 		try {
-			this.ubntGet.setURI(new URI("http://" + apIp + "/login.cgi"));
+			this.ubntGet.setURI(new URI("http://" + this.myCreds.getApIP() + "/login.cgi"));
 			client.execute(this.ubntGet);
 			
 		} catch (URISyntaxException e) {
@@ -98,7 +94,7 @@ public class UbntGatherer {
 	public void phaseTwo()	{
 				
 		try {
-			this.ubntPost.setURI( new URI("http://" + apIp +"/login.cgi") );
+			this.ubntPost.setURI( new URI("http://" + this.myCreds.getApIP() +"/login.cgi") );
 			this.ubntPost.setHeader("Content-Type", 
 							"multipart/form-data;"
 							+ "boundary=" + boundaryString);
@@ -109,12 +105,12 @@ public class UbntGatherer {
 			Charset chars = Charset.forName("UTF-8");
 			entity.setCharset(chars);
 			entity.setBoundary(boundaryString);
-			entity.addTextBody("username", username, ContentType.MULTIPART_FORM_DATA);
-			entity.addTextBody("password", password, ContentType.MULTIPART_FORM_DATA);
+			entity.addTextBody("username", this.myCreds.getUsername(), ContentType.MULTIPART_FORM_DATA);
+			entity.addTextBody("password", this.myCreds.getPassword(), ContentType.MULTIPART_FORM_DATA);
 			entity.addTextBody("uri", "/status.cgi",ContentType.MULTIPART_FORM_DATA);
 	
 			this.ubntPost.setEntity(entity.build());
-			this.ubntPost.addHeader("Referer", "http://" + apIp + "/login.cgi");
+			this.ubntPost.addHeader("Referer", "http://" + this.myCreds.getApIP() + "/login.cgi");
 			this.ubntPost.addHeader("Expect","");
 
 			client.execute(this.ubntPost);
@@ -141,7 +137,7 @@ public class UbntGatherer {
 		try {
 			
 			//Grab the Status CGI page
-			this.ubntGet.setURI(new URI("http://" + apIp + "/status.cgi"));
+			this.ubntGet.setURI(new URI("http://" + this.myCreds.getApIP() + "/status.cgi"));
 			response = client.execute(ubntGet);
 				
 			//Build a response string:
