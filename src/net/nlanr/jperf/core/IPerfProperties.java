@@ -110,7 +110,9 @@ public class IPerfProperties
 	public static final String DEFAULT_TRANSMIT_UNIT = "seconds";
 	
 	public static final String KEY_OUTPUT_FORMAT = "output-format";
-	public static final IperfUnit DEFAULT_OUTPUT_FORMAT = IperfUnit.KBITS;
+	//@todo gillespiem diff this
+	//public static final IperfUnit DEFAULT_OUTPUT_FORMAT = IperfUnit.KBITS;
+	public static final IperfUnit DEFAULT_OUTPUT_FORMAT = IperfUnit.MBITS;
 	
 	public static final String KEY_REPORT_INTERVAL = "report-interval";
 	public static final int DEFAULT_REPORT_INTERVAL = 1;

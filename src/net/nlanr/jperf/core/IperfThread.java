@@ -26,13 +26,13 @@ import javax.swing.SwingUtilities;
 
 public class IperfThread extends Thread
 {
-	private String										command;
-	private Process										process;
-	private JPerfUI										frame;
-	private Vector<JperfStreamResult>	finalResults;
+	protected String										command;
+	protected Process										process;
+	protected JPerfUI										frame;
+	protected Vector<JperfStreamResult>	finalResults;
 
-	private BufferedReader						input;
-	private BufferedReader						errors;
+	protected BufferedReader						input;
+	protected BufferedReader						errors;
 
 	private boolean										isServerMode;
 

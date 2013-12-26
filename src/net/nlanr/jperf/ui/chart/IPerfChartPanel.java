@@ -37,7 +37,7 @@ import org.jfree.data.xy.XYSeriesCollection;
 public class IPerfChartPanel extends AbstractChartPanel
 	implements Runnable
 {
-	private class SeriesData
+	public class SeriesData
 	{
 		public String		seriesId;
 		public String		bandwidthLegend, jitterLegend;
@@ -62,20 +62,20 @@ public class IPerfChartPanel extends AbstractChartPanel
 		}
 	}
 
-	private int													proportion;
-	private CombinedDomainXYPlot				graphSet;
-	private XYItemRenderer							bandwidthRenderer, jitterRenderer;
-	private XYSeriesCollection					bandwidthCollection, jitterCollection;
-	private JPanel											panelTextStats	= new JPanel(new GridLayout(0, 4));
-	private JLabel											labelDate				= new JLabel(" ");
-	private double											delayInSeconds;
-	private SimpleDateFormat						sdf							= new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
-	private HashMap<String, SeriesData>	seriesData			= new HashMap<String, SeriesData>();
-	private Thread											timeThread			= null;
-	private Color												backgroundColor, foregroundColor, gridColor;
-	private String											bandwidthUnit, jitterUnit;
-	private boolean isServerMode = false;
-	private double timeWindow, reportInterval;
+	protected int													proportion;
+	protected CombinedDomainXYPlot				graphSet;
+	protected XYItemRenderer							bandwidthRenderer, jitterRenderer;
+	protected XYSeriesCollection					bandwidthCollection, jitterCollection;
+	protected JPanel											panelTextStats	= new JPanel(new GridLayout(0, 4));
+	protected JLabel											labelDate				= new JLabel(" ");
+	protected double											delayInSeconds;
+	protected SimpleDateFormat						sdf							= new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+	protected HashMap<String, SeriesData>	seriesData			= new HashMap<String, SeriesData>();
+	protected Thread											timeThread			= null;
+	protected Color												backgroundColor, foregroundColor, gridColor;
+	protected String											bandwidthUnit, jitterUnit;
+	protected boolean isServerMode = false;
+	protected double timeWindow, reportInterval;
 	
 	public IPerfChartPanel(String title, String bandwidthUnit, String jitterUnit, String timeAxisLabel, String bandwidthValueAxisLabel, String jitterValueAxisLabel, double delayInSeconds, double timeWindow, double reportInterval, Color backgroundColor, Color foregroundColor,
 			Color gridColor)
