@@ -66,6 +66,7 @@
             <fileset dir="${src.dir}/net/nlanr/jperf/ui">
                 <include name="**/*.png"/>
             	<include name="**/*.jpg"/>
+            	<include name="**/*.txt"/>
                 <exclude name="**/*.java"/>
                 <exclude name="**/.svn"/>
             </fileset>

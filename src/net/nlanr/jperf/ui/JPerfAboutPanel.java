@@ -177,10 +177,10 @@ public class JPerfAboutPanel extends JPanel
 		JScrollPane licensePanel = new JScrollPane(license);
 		bottom.addTab("License", null, licensePanel);
 		license.setEditable(false);
-		/*
+		
 		try
 		{
-			InputStream inIS = this.getClass().getResourceAsStream("/license.txt");
+			InputStream inIS = this.getClass().getResourceAsStream("license.txt");
 			BufferedReader in = new BufferedReader(new InputStreamReader(inIS));
 			String line = in.readLine();
 			while (line != null)
@@ -197,6 +197,6 @@ public class JPerfAboutPanel extends JPanel
 		catch (IOException e)
 		{
 			license.append("Error: " + e.getMessage());
-		}*/
+		}
 	}
 }
