@@ -1,11 +1,12 @@
 UbiquiJPerf
 ===========
 
-Java port of Ubiquiperf (https://github.com/gillespiem/Ubiquiperf), allowing for the real-time display of signal
-stats, MCS index in use (ala TXRate/RXRate), and iperf throughput datapoints of Ubiquiti AirOS based gear. 
+Graph Ubiquiti AirOS stats in real-time. This is a Java port of Ubiquiperf 
+(https://github.com/gillespiem/Ubiquiperf), allowing for the real-time display of signal stats, 
+MCS index in use (ala TXRate/RXRate), and iperf throughput datapoints of Ubiquiti AirOS based gear. 
 
 The PHP based Ubiquiperf generated graphs only after all data was collected, UbiquiJPerf will display datapoints
-in real-time.
+every second.
 
 This project is an expanding from the JPerf codebase.
 
