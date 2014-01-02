@@ -1022,7 +1022,6 @@ public class UbiquiJPerfUI extends JFrame
                     ubntUseHTTPS.addActionListener(this);
                     ubntUseHTTPS.setToolTipText("Use HTTPS or HTTP");
                     ubntUseHTTPS.setSelected(false);
-                    ubntUseHTTPS.setEnabled(false);
                     ubntForm.addCell(ubntUseHTTPS);
 
                     ubntPanel = ubntForm.getPanel();

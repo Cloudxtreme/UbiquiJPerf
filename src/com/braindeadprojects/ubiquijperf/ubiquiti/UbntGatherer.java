@@ -6,6 +6,14 @@ import java.io.InputStreamReader;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.nio.charset.Charset;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -13,6 +21,9 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.SSLContextBuilder;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.*;
@@ -42,17 +53,43 @@ public class UbntGatherer {
 	 */
 	public UbntGatherer()
 	{
-		//@todo: This proxy is only for debugging purposes, remove it.
-		HttpHost proxy = new HttpHost("127.0.0.1", 8008, "http");
-	 	
-		client = HttpClientBuilder.create()
-				  .setUserAgent("Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.7")
-				  .setMaxConnPerRoute(4)
-				  //.setProxy(proxy)
-				  .build();
+		try
+		{
+			//@todo: This proxy is only for debugging purposes, remove it.
+			HttpHost proxy = new HttpHost("127.0.0.1", 8008, "http");
+		 
+			//We need to handle the self-signed certificates, so we do so
+			// by creating a new Self-Signed Strategy: 
+		    SSLContextBuilder builder = new SSLContextBuilder();
+		    builder.loadTrustMaterial(null, new TrustSelfSignedStrategy(){
+				@Override
+				public boolean isTrusted(X509Certificate[] arg0, String arg1)
+						throws CertificateException {
+							return true;
+				}
+		    });
+		    
+		    //Hostnames don't match on the self signed certs since
+		    // CN is almost always UBNT
+		    SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(builder.build(),
+		    			SSLConnectionSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+		    
+			
+			client = HttpClientBuilder.create()
+					  .setUserAgent("Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.7")
+					  .setMaxConnPerRoute(4)
+					  //.setProxy(proxy)
+					  .setSSLSocketFactory(sslsf)
+					  .build();
+				
+			this.ubntGet = new HttpGet();
+			this.ubntPost = new HttpPost();
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 		
-		this.ubntGet = new HttpGet();
-		this.ubntPost = new HttpPost();
 	}
 	
 	public UbntGatherer(UbntCredentials myCreds)
