@@ -76,7 +76,7 @@ public class UbntGatherer {
 	public void phaseOne()	{
 						
 		try {
-			this.ubntGet.setURI(new URI("http://" + this.myCreds.getApIP() + "/login.cgi"));
+			this.ubntGet.setURI(new URI(this.myCreds.getHttpProtocol() + "://" + this.myCreds.getApIP() + "/login.cgi"));
 			client.execute(this.ubntGet);
 			
 		} catch (URISyntaxException e) {
@@ -94,7 +94,7 @@ public class UbntGatherer {
 	public void phaseTwo()	{
 				
 		try {
-			this.ubntPost.setURI( new URI("http://" + this.myCreds.getApIP() +"/login.cgi") );
+			this.ubntPost.setURI( new URI(this.myCreds.getHttpProtocol() + "://" + this.myCreds.getApIP() +"/login.cgi") );
 			this.ubntPost.setHeader("Content-Type", 
 							"multipart/form-data;"
 							+ "boundary=" + boundaryString);
@@ -110,7 +110,7 @@ public class UbntGatherer {
 			entity.addTextBody("uri", "/status.cgi",ContentType.MULTIPART_FORM_DATA);
 	
 			this.ubntPost.setEntity(entity.build());
-			this.ubntPost.addHeader("Referer", "http://" + this.myCreds.getApIP() + "/login.cgi");
+			this.ubntPost.addHeader("Referer", this.myCreds.getHttpProtocol() + "://" + this.myCreds.getApIP() + "/login.cgi");
 			this.ubntPost.addHeader("Expect","");
 
 			client.execute(this.ubntPost);
@@ -137,7 +137,7 @@ public class UbntGatherer {
 		try {
 			
 			//Grab the Status CGI page
-			this.ubntGet.setURI(new URI("http://" + this.myCreds.getApIP() + "/status.cgi"));
+			this.ubntGet.setURI(new URI(this.myCreds.getHttpProtocol() + "://" + this.myCreds.getApIP() + "/status.cgi"));
 			response = client.execute(ubntGet);
 				
 			//Build a response string:
